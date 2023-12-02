@@ -1,19 +1,6 @@
-// SegmentDetail.jsx
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-
-const SubSegment = ({ title, content }) => (
-  <div>
-    <h4>{title}</h4>
-    <p>{content}</p>
-  </div>
-);
-
-const SegmentDetail = () => {
-  const { segment, subSegment } = useParams(); // Get the segment and sub-segment titles from the URL
 
   // Dummy data for sub-segments
-  const subSegments = {
+export const subSegments = {
     'plan-the-course': [
       {
         title: 'Foreseer Developer',
@@ -91,17 +78,3 @@ const SegmentDetail = () => {
       },
     ],
   };
-
-  return (
-    <div>
-      <h2>{segment} - {subSegment}</h2>
-
-      {/* Render each sub-sub-segment */}
-      {subSegments[segment].map((subSubSegment, index) => (
-        <SubSegment key={index} {...subSubSegment} />
-      ))}
-    </div>
-  );
-};
-
-export default SegmentDetail;

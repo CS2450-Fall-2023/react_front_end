@@ -1,18 +1,4 @@
-// Assessment.jsx
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './App.module.css'
-
-// Component for each segment
-const AssessmentSegment = ({ title, description }) => (
-  <div className={styles['container']}>
-    <h3>{title}</h3>
-    <p>{description}</p>
-  </div>
-);
-
-const Assessment = () => {
-  const segments = [
+export const segments = [
     {
       title: 'Plan-the-Course',
       theme: 'Having a Course of Action to Follow',
@@ -38,22 +24,3 @@ const Assessment = () => {
         "They thrive in facilitator or catalyst roles and aim to inspire others to move to action, facilitating the process. Their focus is on interaction, often with an expressive style. They Get-Things-Going with upbeat energy, enthusiasm, or excitement, which can be contagious. Exploring options and possibilities, making preparations, discovering new ideas, and sharing insights are all ways they get people moving along. They want decisions to be participative and enthusiastic, with everyone involved and engaged.",
     },
   ];
-
-  return (
-    <div className={styles['container']}>
-      <p>
-        Click on the section that most matches your personality. Don't worry if you're not sure; you can click and explore around until you're certain of your choice.
-      </p>
-
-      {/* Render each segment */}
-      {segments.map((segment, index) => (
-        <Link key={index} to={`/assessment/${segment.title.toLowerCase().replace(/\s/g, '-')}`}>
-          <AssessmentSegment title={segment.title} description={segment.description} />
-        </Link>
-      ))}
-    </div>
-  );
-};
-
-export default Assessment;
-
