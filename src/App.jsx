@@ -1,10 +1,8 @@
 // App.jsx
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import Assessment from './pages/Assessment';
-import SegmentDetail from './pages/SegmentDetail';
-import Layout from './layout/Layout';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import MainPage from './pages/MainPage';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import AssessmentPage from './pages/AssessmentPage';
 
 function AnimatedSwitch() {
   let location = useLocation();
@@ -17,9 +15,8 @@ function AnimatedSwitch() {
         timeout={300}
       >
         <Routes location={location}>
-          <Route path='/' element={<Layout />} />
-          <Route path='/assessment' element={<Assessment />} />
-          <Route path='/assessment/:segment' element={<SegmentDetail />} />
+          <Route path='/' element={<MainPage />} />
+          <Route path='/assessment/:questionGroupId' element={<AssessmentPage />} />
         </Routes>
       </CSSTransition>
     </TransitionGroup>
@@ -31,7 +28,7 @@ function App() {
 
   return (
     <Router>
-      <AnimatedSwitch/>
+      <AnimatedSwitch />
     </Router>
   );
 }
