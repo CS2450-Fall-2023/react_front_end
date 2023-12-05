@@ -36,34 +36,27 @@ function AssessmentQuestion({ question }) {
 
 /**
  * Renders the assessment page.
+ * @param {Object} props - The component props.
+ * @param {QuestionResponse[]} props.questions - The questions array.
  * @returns {JSX.Element} The rendered component.
  */
-function AssessmentPage() {
+function AssessmentPage({ questions }) {
   const location = useLocation();
   // State to store the fetched data
-  const [data, setData] = useState([]);
+  const [currentQuestions, setCurrentQuestions] = useState([]);
 
   useEffect(() => {
     const currentId = location.pathname.split('/')[2];
 
     // Function to fetch data from the API
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`http://localhost:4000/questions/${currentId}`);
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+    let result = questions.filter(question => question.group_id === parseInt(currentId));
 
-    // Call the fetch function
-    fetchData();
-  }, [location.pathname]);
+    setCurrentQuestions(result);
+  }, [location.pathname, questions]);
 
   return (
     <>
-      {data.map((question, index) => (
+      {currentQuestions.map((question, index) => (
         <AssessmentQuestion key={index} question={question} />
       ))}
     </>

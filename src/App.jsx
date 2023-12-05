@@ -3,9 +3,33 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import MainPage from './pages/MainPage';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import AssessmentPage from './pages/AssessmentPage';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 function AnimatedSwitch() {
   let location = useLocation();
+
+  let [questions, setQuestions] = useState([]);
+
+  const fetchQuestions = async () => {
+    try {
+      const response = await fetch(`http://localhost:4000/questions`);
+      const result = await response.json();
+
+      return result;
+    } catch (error) {
+      console.log('Error fetching data: Reverting to hardcoded JSON');
+
+      const response = await fetch(`../questions.json`);
+      let result = await response.json();
+
+      return result;
+    }
+  };
+
+  useEffect(() => {
+    fetchQuestions().then(result => setQuestions(result));
+  }, []);
 
   return (
     <TransitionGroup>
@@ -16,7 +40,7 @@ function AnimatedSwitch() {
       >
         <Routes location={location}>
           <Route path='/' element={<MainPage />} />
-          <Route path='/assessment/:questionGroupId' element={<AssessmentPage />} />
+          <Route path='/assessment/:questionGroupId' element={<AssessmentPage questions={questions} />} />
         </Routes>
       </CSSTransition>
     </TransitionGroup>
