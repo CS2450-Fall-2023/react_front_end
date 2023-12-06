@@ -5,6 +5,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import AssessmentPage from './pages/AssessmentPage';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import Form from './pages/Form';
 
 function AnimatedSwitch() {
   let location = useLocation();
@@ -41,6 +42,7 @@ function AnimatedSwitch() {
         <Routes location={location}>
           <Route path='/' element={<MainPage />} />
           <Route path='/assessment/:questionGroupId' element={<AssessmentPage questions={questions} />} />
+          <Route path='/form' element={<Form/>}/>
         </Routes>
       </CSSTransition>
     </TransitionGroup>
